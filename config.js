@@ -1,6 +1,4 @@
-// Add your NEW Supabase project's public URL and anon/publishable key.
-// Never put a service_role or secret key here.
 window.MOSTKBALMED_CONFIG = {
-  url: "",
-  anonKey: ""
+  url: "https://mostkbalmed.vercel.app/",
+  anonKey: "sb_publishable_PRJwJwWq8m74NiMMBcX65A_3MroQSHb"
 };
