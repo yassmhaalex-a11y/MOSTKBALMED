@@ -55,3 +55,12 @@
 .service-about.has-image:is(:hover,:focus,:focus-within,.preview-open) .service-about-preview{display:block!important;pointer-events:none}
 .service-about-preview{min-width:260px;max-width:90vw}
 @media (hover:none){.service-about.has-image.preview-open .service-about-preview{display:block!important}}
+
+/* V14: always show a preview panel on hover, with a clear missing-image message. */
+.service-about{isolation:isolate;cursor:pointer}
+.service-about-preview{display:none;box-sizing:border-box;align-items:center;justify-content:center;white-space:normal;text-align:center;overflow:hidden;background:#fff;min-height:220px;height:auto;aspect-ratio:4/3}
+.service-about-preview img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.service-about-preview img[hidden]{display:none!important}
+.service-about-preview .service-hint{display:block;font-size:14px;line-height:1.7;color:#65758c;padding:16px}
+.service-about-preview .service-hint[hidden]{display:none!important}
+.service-about:hover .service-about-preview,.service-about.preview-open .service-about-preview,.service-about:focus .service-about-preview,.service-about:focus-within .service-about-preview{display:flex!important;pointer-events:none}
