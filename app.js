@@ -16,7 +16,7 @@ $('#year').textContent=new Date().getFullYear();renderCategories();render();
  try {
   const headers={apikey:cfg.anonKey,Authorization:'Bearer '+cfg.anonKey};
   const base=cfg.url.replace(/\/$/,'')+'/rest/v1/';
-  const [cr,pr]=await Promise.all([fetch(base+'med_categories?select=id,name,icon,description&order=name',{headers}),fetch(base+'med_products?select=id,name,category,image,images,description,features&active=eq.true&order=created_at.desc',{headers})]);
+  const [cr,pr]=await Promise.all([fetch(base+'med_categories?select=id,name,icon,description&order=name',{headers}),fetch(base+'med_products?select=id,name,category,image,description,features&active=eq.true&order=created_at.desc',{headers})]);
   if(!cr.ok||!pr.ok)throw new Error('Catalog fetch failed. Check database setup.');
   categories=await cr.json();products=await pr.json();
   renderCategories();render();
