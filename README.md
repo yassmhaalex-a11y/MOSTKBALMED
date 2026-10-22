@@ -1,4 +1,8 @@
-MOSTKBALMED V11: One plain “الصيانة والتجهيزات” label beside About Us in the top menu. Hover/focus shows a single photo; leaving hides it. The photo is taken from the Maintenance Image setting in admin (fallback Equipment Image). The About section no longer contains service cards. All other admin/product functionality is retained. Upload all files to GitHub. No new SQL required after V9.
+MOSTKBALMED V13 — single service image and hover fix
 
-
-V12 layout fix: the single text phrase "الصيانة والتجهيزات" is placed immediately next to the About Us heading, NOT in the top navigation. On mouse hover/focus its image appears; on mouse leave it disappears. In Admin → الصيانة والتجهيزات, upload the image and click Save This Page. The main image uses maintenance_image; equipment_image remains an optional fallback for compatibility. No database migration required beyond V9.
+- About Us: single phrase الصيانة والتجهيزات, one image, hover/focus/tap preview.
+- Admin > الصيانة والتجهيزات: one image upload or URL, with preview. Save This Page persists to Supabase.
+- Footer: DIRECTED BY YASSIN MOHAMED.
+- No new SQL needed if V9 database migration was completed.
+- Upload ALL files to the repository root, replace older files, and hard refresh (Ctrl+Shift+R).
+- If the image still does not appear, confirm the image preview works in Admin and Save This Page reports success.

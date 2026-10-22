@@ -49,3 +49,9 @@
 .service-about-preview img{width:100%;height:100%;object-fit:contain;border-radius:6px}
 .service-about.has-image:hover .service-about-preview,.service-about.has-image:focus .service-about-preview,.service-about.has-image:focus-within .service-about-preview{display:block}
 @media(max-width:650px){.about-heading-row{gap:12px}.service-about{font-size:16px}.service-about-preview{left:0;transform:none;width:min(310px,84vw);height:240px}}
+
+/* V13: service image opens reliably on pointer hover; stays inside About area. */
+.service-about{z-index:5;cursor:pointer;overflow:visible}
+.service-about.has-image:is(:hover,:focus,:focus-within,.preview-open) .service-about-preview{display:block!important;pointer-events:none}
+.service-about-preview{min-width:260px;max-width:90vw}
+@media (hover:none){.service-about.has-image.preview-open .service-about-preview{display:block!important}}
