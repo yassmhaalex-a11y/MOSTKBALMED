@@ -1,7 +1,1 @@
-MOSTKBALMED V10
-
-1. Upload all files to GitHub root, replacing V9 files.
-2. No new SQL needed beyond V9_DATABASE_UPDATE.sql.
-3. Admin has separate navigable pages for products, about, contact, maintenance/equipment.
-4. About image removed from website; hover image cards for maintenance/equipment appear there.
-5. Images, products and content remain in Supabase.
+MOSTKBALMED V11: One plain “الصيانة والتجهيزات” label beside About Us in the top menu. Hover/focus shows a single photo; leaving hides it. The photo is taken from the Maintenance Image setting in admin (fallback Equipment Image). The About section no longer contains service cards. All other admin/product functionality is retained. Upload all files to GitHub. No new SQL required after V9.
