@@ -1,24 +1,14 @@
-# MOSTKBALMED — V1
+# MOSTKBALMED V2 — Medical Catalog + Admin
 
-Medical equipment and supplies **catalog-only** website. No prices, carts, purchases, payments, or orders.
+## Installation
+1. Create a **new** Supabase project, separate from Flash Store.
+2. In Supabase SQL Editor run `supabase_setup.sql` once.
+3. Authentication > Users > Add user: create your own admin email/password (do not share the password). Copy its UUID.
+4. SQL Editor: `insert into public.med_admins(user_id) values ('YOUR-ADMIN-USER-UUID');`
+5. Project Settings > API Keys: copy the project URL and the **publishable/anon** key into `config.js`. NEVER use service_role or secret keys in browser files.
+6. Upload all V2 files to the root of your GitHub repository (replace V1 files), then wait for Vercel deployment.
+7. Open `/admin.html`, sign in and create categories before products. Upload product images or provide public image URLs.
 
-## Files
-- `index.html` — website layout
-- `style.css` — blue-and-white responsive design
-- `products.js` — sample categories and products
-- `app.js` — category filters, search, and product details
+Public catalog is at `/`. Prices, checkout and orders do not exist. The V1 demo products are displayed only until `config.js` is configured. Once configured, the site displays products from Supabase.
 
-## Edit catalog
-Open `products.js` and replace the **demo** categories and products with your actual items. To add images, create an `images` folder and reference files with paths such as `images/monitor.jpg`. Do not publish unverified medical specifications.
-
-## GitHub upload
-1. Open your new MOSTKBALMED repository.
-2. Choose **Add file → Upload files**.
-3. Extract the ZIP and upload **the files inside** the `MOSTKBALMED_V1` folder to the repository root (not the folder itself).
-4. Commit changes.
-
-## Vercel
-Import the repository at https://vercel.com/new . Choose **Other** framework preset if asked, leave build command blank, and deploy. `index.html` must be in the repository root.
-
-## Important
-This V1 is a static catalog prototype with sample products, not a production database or admin panel. A secure admin dashboard will need authentication and a separate Supabase project. Do not put Supabase service-role keys in frontend JavaScript.
+Security: RLS restricts writes to explicitly listed admins. Uploaded images are public. Do not upload confidential files. Category deletion is blocked if products still reference it.
