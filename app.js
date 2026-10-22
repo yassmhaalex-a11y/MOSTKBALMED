@@ -1,24 +1,7 @@
-const $=s=>document.querySelector(s);let categories=window.CATALOG_CATEGORIES||[];let products=window.CATALOG_PRODUCTS||[];
-const catName=id=>categories.find(c=>c.id===id)?.name||'Medical Equipment';
-const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const symbol=id=>({diagnostic:'♡',respiratory:'✚',supplies:'▦',clinic:'⚕'}[id]||'✚');
-const art=p=>p.image?`<img loading="lazy" src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}">`:`<div class="placeholder"><span>${symbol(p.category)}</span><small>MOSTKBALMED</small></div>`;
-function renderCategories(){ $('#categoryGrid').innerHTML=categories.map(c=>`<button class="category-card" data-cat="${escapeHTML(c.id)}"><span class="cat-icon">${escapeHTML(c.icon)}</span><strong>${escapeHTML(c.name)}</strong><small>${escapeHTML(c.description)}</small><span class="arrow">Explore →</span></button>`).join('');
-$('#categoryFilter').innerHTML='<option value="all">All Categories</option>'+categories.map(c=>`<option value="${escapeHTML(c.id)}">${escapeHTML(c.name)}</option>`).join(''); }
-function render(){const q=$('#search').value.toLowerCase().trim(),cat=$('#categoryFilter').value;const filtered=products.filter(p=>(cat==='all'||p.category===cat)&&[p.name,p.description,catName(p.category)].join(' ').toLowerCase().includes(q));$('#resultCount').textContent=`${filtered.length} products`;$('#empty').hidden=filtered.length!==0;$('#productGrid').innerHTML=filtered.map(p=>`<article class="product-card"><div class="product-image">${art(p)}</div><div class="product-info"><span class="tag">${escapeHTML(catName(p.category))}</span><h3>${escapeHTML(p.name)}</h3><a class="detail-btn" href="product.html?id=${encodeURIComponent(p.id)}">View Details <span>→</span></a></div></article>`).join('');}
-$('#search').addEventListener('input',render);$('#categoryFilter').addEventListener('change',render);
-$('#categoryGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;$('#categoryFilter').value=b.dataset.cat;render();$('#products').scrollIntoView({behavior:'smooth'});});
-$('#menu').addEventListener('click',()=>{const expanded=$('#nav').classList.toggle('show');$('#menu').setAttribute('aria-expanded',String(expanded));});$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('show');$('#menu').setAttribute('aria-expanded','false');}});
-$('#year').textContent=new Date().getFullYear();renderCategories();render();
-(async function loadCatalog(){
- const cfg=window.MOSTKBALMED_CONFIG||{};
- if(!cfg.url||!cfg.anonKey)return;
- try {
-  const headers={apikey:cfg.anonKey,Authorization:'Bearer '+cfg.anonKey};
-  const base=cfg.url.replace(/\/$/,'')+'/rest/v1/';
-  const [cr,pr]=await Promise.all([fetch(base+'med_categories?select=id,name,icon,description&order=name',{headers}),fetch(base+'med_products?select=id,name,category,image,description,features&active=eq.true&order=created_at.desc',{headers})]);
-  if(!cr.ok||!pr.ok)throw new Error('Catalog fetch failed. Check database setup.');
-  categories=await cr.json();products=await pr.json();
-  renderCategories();render();
- }catch(e){console.error(e);$('#empty').hidden=false;$('#empty').textContent='Unable to load catalog. Please try again later.';$('#productGrid').innerHTML='';$('#categoryGrid').innerHTML='';$('#resultCount').textContent='';}
-})();
+const $=s=>document.querySelector(s);let products=[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const art=p=>p.image?`<img loading="lazy" src="${esc(p.image)}" alt="${esc(p.name)}">`:'<div class="placeholder"><span>✚</span><small>MOSTKBALMED</small></div>';
+function render(){const q=$('#search').value.toLowerCase().trim();const filtered=products.filter(p=>[p.name,p.description].join(' ').toLowerCase().includes(q));$('#resultCount').textContent=`${filtered.length} products`;$('#empty').hidden=!!filtered.length;$('#empty').textContent=q?'No matching products found.':'No products have been added yet.';$('#productGrid').innerHTML=filtered.map(p=>`<article class="product-card"><div class="product-image">${art(p)}</div><div class="product-info"><h3>${esc(p.name)}</h3><a class="detail-btn" href="product.html?id=${encodeURIComponent(p.id)}">View Details <span>→</span></a></div></article>`).join('');}
+$('#search').addEventListener('input',render);$('#menu').addEventListener('click',()=>{const expanded=$('#nav').classList.toggle('show');$('#menu').setAttribute('aria-expanded',String(expanded));});$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('show');$('#menu').setAttribute('aria-expanded','false');}});$('#year').textContent=new Date().getFullYear();render();
+function applySettings(s){if(!s)return;for(const [id,key] of [['aboutTitle','about_title'],['aboutText','about_text'],['aboutOverlay','about_overlay'],['contactTitle','contact_title'],['contactText','contact_text']]){if(s[key])$('#'+id).textContent=s[key];}if(s.about_image){$('#aboutImage').src=s.about_image;}const wa=(s.whatsapp||'').replace(/[^0-9]/g,'');if(wa){const a=$('#whatsappButton');a.href='https://wa.me/'+wa;a.hidden=false;}const phone=(s.phone||'').replace(/[^0-9+() -]/g,'');if(phone){const a=$('#phoneButton');a.href='tel:'+phone.replace(/[^0-9+]/g,'');a.hidden=false;}}
+(async()=>{const cfg=window.MOSTKBALMED_CONFIG||{};if(!cfg.url||!cfg.anonKey){$('#empty').hidden=false;$('#empty').textContent='Catalog connection is not configured.';return;}try{const headers={apikey:cfg.anonKey,Authorization:'Bearer '+cfg.anonKey};const base=cfg.url.replace(/\/$/,'')+'/rest/v1/';const [pr,sr]=await Promise.all([fetch(base+'med_products?select=id,name,image,description&active=eq.true&order=created_at.desc',{headers}),fetch(base+'med_settings?select=*&id=eq.1',{headers})]);if(!pr.ok)throw Error('Unable to load products.');products=await pr.json();render();if(sr.ok){const rows=await sr.json();applySettings(rows[0]);}else console.warn('Website settings unavailable; run V7_DATABASE_UPDATE.sql');}catch(e){console.error(e);$('#empty').hidden=false;$('#empty').textContent='Unable to load catalog. Please try again later.';}})();
