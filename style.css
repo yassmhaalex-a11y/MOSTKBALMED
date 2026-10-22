@@ -70,3 +70,7 @@
 .contact-unset{opacity:.45;cursor:not-allowed;pointer-events:none}
 [hidden]{display:none!important}
 .service-about.preview-open .service-about-preview,.service-about:hover .service-about-preview,.service-about:focus .service-about-preview{display:flex!important}
+
+/* V16: restore visible contact icons without changing links */
+.contact-button{display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.contact-icon{width:23px;height:23px;flex:none;display:block}

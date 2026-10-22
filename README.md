@@ -8,3 +8,5 @@ MOSTKBALMED V15 — Settings / Hover / Contact repair
 
 Changes: independent public settings fetch (no longer blocked by product loading), checks settings public visibility after admin save, safe WhatsApp/phone links, hover image and clear error hints.
 NOTE: Actual live Supabase connectivity cannot be tested from this offline build.
+
+V16: Restored WhatsApp logo and phone handset icon in Contact Us buttons. No database migration required.
