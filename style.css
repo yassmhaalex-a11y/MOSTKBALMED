@@ -40,3 +40,12 @@
 .service-nav-preview img{width:100%;height:100%;object-fit:contain;border-radius:7px}
 .service-nav.has-image:hover .service-nav-preview,.service-nav.has-image:focus .service-nav-preview,.service-nav.has-image:focus-within .service-nav-preview{display:block}
 @media(max-width:700px){.service-nav-preview{left:auto;right:0;transform:none;width:min(300px,85vw)}}
+
+/* V12: single plain-text service label beside the About Us heading. */
+.about-heading-row{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.about-heading-row h2{margin:0}
+.service-about{position:relative;display:inline-block;font-size:19px;font-weight:500;color:#173453;cursor:default;outline-offset:5px;white-space:nowrap;line-height:1.5}
+.service-about-preview{display:none;position:absolute;left:50%;top:calc(100% + 12px);transform:translateX(-50%);width:min(400px,82vw);height:310px;padding:8px;background:#fff;border:1px solid #e2e9f3;border-radius:10px;box-shadow:0 16px 40px #152f4c33;z-index:20}
+.service-about-preview img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.service-about.has-image:hover .service-about-preview,.service-about.has-image:focus .service-about-preview,.service-about.has-image:focus-within .service-about-preview{display:block}
+@media(max-width:650px){.about-heading-row{gap:12px}.service-about{font-size:16px}.service-about-preview{left:0;transform:none;width:min(310px,84vw);height:240px}}
