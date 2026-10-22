@@ -64,3 +64,9 @@
 .service-about-preview .service-hint{display:block;font-size:14px;line-height:1.7;color:#65758c;padding:16px}
 .service-about-preview .service-hint[hidden]{display:none!important}
 .service-about:hover .service-about-preview,.service-about.preview-open .service-about-preview,.service-about:focus .service-about-preview,.service-about:focus-within .service-about-preview{display:flex!important;pointer-events:none}
+
+/* V15: settings diagnostics and contact link safety */
+.settings-warning{font-size:13px;color:#8b3440;margin:12px 0;max-width:640px}
+.contact-unset{opacity:.45;cursor:not-allowed;pointer-events:none}
+[hidden]{display:none!important}
+.service-about.preview-open .service-about-preview,.service-about:hover .service-about-preview,.service-about:focus .service-about-preview{display:flex!important}

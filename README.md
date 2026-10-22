@@ -1,7 +1,10 @@
-MOSTKBALMED V14 — hover image diagnostics and save verification.
+MOSTKBALMED V15 — Settings / Hover / Contact repair
 
-Upload ALL files to GitHub repository root and redeploy Vercel. No new SQL required if V9 SQL ran successfully.
+1. Run V15_DATABASE_REPAIR.sql in Supabase SQL Editor (same project as config.js). It preserves data.
+2. The SELECT result must contain a non-empty maintenance_image URL and WhatsApp/phone numbers. If empty, open Admin, upload the service image, enter both numbers, click Save This Page.
+3. Upload ALL website files to GitHub root; wait for Vercel Ready; hard refresh Ctrl+Shift+R.
+4. Hover over الصيانة والتجهيزات beside About Us.
+5. If settings still fail, the site now shows an error instead of silently failing.
 
-In Admin > الصيانة والتجهيزات, upload ONE JPG/PNG/WebP image, click Save This Page, and wait for Saved and verified in Supabase. The current image preview must display the image. Then refresh the homepage (Ctrl+Shift+R), hover the phrase next to About Us. If no image is configured or the URL is broken, a helpful message will appear rather than nothing.
-
-If upload errors appear, check Supabase med-images bucket and Storage policies.
+Changes: independent public settings fetch (no longer blocked by product loading), checks settings public visibility after admin save, safe WhatsApp/phone links, hover image and clear error hints.
+NOTE: Actual live Supabase connectivity cannot be tested from this offline build.
