@@ -18,3 +18,11 @@ Product cards show only the cover; product details include gallery thumbnails an
 - Added logo-derived favicon and logo animation on product details loader.
 - Preserved V4 Supabase integration, multi-image galleries, admin panel and catalog-only flow.
 - Upload all files (including `logo.jpg` and `favicon.png`) to repository root. No new SQL needed.
+
+
+## V6 — Empty starter catalog
+- Removed the six example products and four example categories from the local `products.js` file.
+- Removed references to `products.js` from the public pages.
+- Catalog now shows only categories and products returned by your Supabase project.
+- If you previously saved example products/categories into Supabase, delete those specific records from the admin panel separately. This ZIP does NOT delete database records.
+- Keep your existing `config.js` public Supabase URL and publishable key; never put secret keys in it.

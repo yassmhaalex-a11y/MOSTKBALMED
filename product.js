@@ -25,9 +25,7 @@ async function load(){
    const c=await fetch(base+'med_categories?id=eq.'+encodeURIComponent(rows[0].category)+'&select=name',{headers});
    const cats=c.ok?await c.json():[];show(rows[0],cats[0]?.name);return;
   }
-  const p=(window.CATALOG_PRODUCTS||[]).find(x=>x.id===id);
-  if(!p){fail('This product could not be found.');return;}
-  show(p,(window.CATALOG_CATEGORIES||[]).find(x=>x.id===p.category)?.name);
+  fail('Catalog connection is not configured.');
  }catch(e){console.error(e);fail('Please check your connection and try again.');}
 }
 load().finally(()=>{const loader=document.getElementById('pageLoader');loader.classList.add('loader-hide');loader.addEventListener('transitionend',()=>loader.remove(),{once:true});});
