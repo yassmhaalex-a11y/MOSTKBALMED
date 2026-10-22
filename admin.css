@@ -11,3 +11,6 @@
 .toast-success{background:#11694d}.toast-error{background:#bd3045}@keyframes toastIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 @media(max-width:650px){.admin-tabs{top:72px}.admin-panel{padding:17px}.form-section{padding:15px}.toast{top:12px;right:12px}}
+
+/* V10: page-by-page administration */
+.admin-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.admin-tabs a{padding:12px 16px;border-radius:12px;background:#edf3fb;color:#193e68;text-decoration:none;font-weight:700}.admin-tabs a.active{background:#1261c6;color:white}.admin-panel[hidden],.form-section[hidden],#websiteAdmin[hidden]{display:none!important}#websiteAdmin .form-section{border:0;padding:0;margin:0}#websiteAdmin .form-section[hidden]{display:none!important}
