@@ -1,14 +1,12 @@
-# MOSTKBALMED V2 — Medical Catalog + Admin
+# MOSTKBALMED V3 — Medical Catalog (See Only)
 
-## Installation
-1. Create a **new** Supabase project, separate from Flash Store.
-2. In Supabase SQL Editor run `supabase_setup.sql` once.
-3. Authentication > Users > Add user: create your own admin email/password (do not share the password). Copy its UUID.
-4. SQL Editor: `insert into public.med_admins(user_id) values ('YOUR-ADMIN-USER-UUID');`
-5. Project Settings > API Keys: copy the project URL and the **publishable/anon** key into `config.js`. NEVER use service_role or secret keys in browser files.
-6. Upload all V2 files to the root of your GitHub repository (replace V1 files), then wait for Vercel deployment.
-7. Open `/admin.html`, sign in and create categories before products. Upload product images or provide public image URLs.
+New in V3: product cards show only product name and category; View Details opens `product.html?id=...` with a rotating MOSTKBALMED loading animation, full description and specifications. No prices or checkout.
 
-Public catalog is at `/`. Prices, checkout and orders do not exist. The V1 demo products are displayed only until `config.js` is configured. Once configured, the site displays products from Supabase.
+## Deploy
+Upload all files from this ZIP to the root of your existing GitHub MOSTKBALMED repository, replacing existing files. Vercel redeploys automatically. Keep `config.js` pointing to the same Supabase project.
 
-Security: RLS restricts writes to explicitly listed admins. Uploaded images are public. Do not upload confidential files. Category deletion is blocked if products still reference it.
+## Database
+Uses existing `med_products`, `med_categories`, `med_admins` and `med-images` from V2. No new SQL needed. Existing admin panel is unchanged.
+
+## Important
+The Supabase publishable key is public by design. Never add a service role or secret key to frontend code.
