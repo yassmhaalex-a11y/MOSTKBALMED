@@ -17,7 +17,7 @@ async function load(){
  const cfg=window.MOSTKBALMED_CONFIG||{};
  try{
   if(cfg.url&&cfg.anonKey){
-   const headers={apikey:cfg.anonKey,Authorization:'Bearer '+cfg.anonKey};
+   const headers={apikey:cfg.anonKey};if(!cfg.anonKey.startsWith('sb_publishable_'))headers.Authorization='Bearer '+cfg.anonKey;
    const base=cfg.url.replace(/\/$/,'')+'/rest/v1/';
    const r=await fetch(base+'med_products?id=eq.'+encodeURIComponent(id)+'&active=eq.true&select=id,name,category,image,images,description,features',{headers});
    if(!r.ok)throw new Error('Unable to load the product from Supabase.');

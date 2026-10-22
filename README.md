@@ -1,13 +1,11 @@
-# MOSTKBALMED V7 — catalog only
+# MOSTKBALMED V8 FIXED
 
-New features: products without categories, multi-row grid, About image with hover overlay, WhatsApp and landline contact buttons, and editable About/Contact content in admin.
+Fixes: product save diagnostics, database category constraint migration, reliable About/Contact settings persistence, and public API requests using Supabase publishable keys. WhatsApp and Call buttons activate after you enter numbers in Admin > Website Content and save. Phone links require a phone/dialer app (desktop browsers may not have one).
 
 ## Install
-1. In the EXISTING MOSTKBALMED Supabase project, run `V7_DATABASE_UPDATE.sql` in SQL Editor. It does not delete any products or categories.
-2. Upload all V7 site files to the ROOT of the existing GitHub repository, replacing earlier versions. Remove obsolete `products.js` if it remains.
-3. Vercel will redeploy. Open `/admin.html` and edit Products or Website Content.
-4. Set WhatsApp as an international phone number with country code (example: 2010XXXXXXXX). Set landline with area/country code. The phone button works on devices/apps that support `tel:` links.
+1. Open your existing MOSTKBALMED Supabase project > SQL Editor > New query. Run `V8_DATABASE_FIX.sql` in the SQL Editor (not an AI SQL generator). No products or accounts are deleted.
+2. In Admin > Website Content, enter WhatsApp number in international digits, e.g. 2010XXXXXXXX (no leading + needed). Enter landline e.g. +203XXXXXXX. Click Save Website Content and refresh to confirm persistence.
+3. Upload ALL V8 files to the ROOT of the GitHub repo, overwriting existing files. Vercel will redeploy.
+4. Sign in to /admin.html, add a product. If image upload fails, read the red error message at the top.
 
-Note: `config.js` contains only the public Supabase publishable key, not a service-role key. Do not upload secrets.
-
-Existing products remain. Existing category values may remain in the database, but are not used by V7. About image can be uploaded into existing `med-images` bucket. If SQL previously changed `features` to JSONB, the product editor still saves a JSON-compatible array.
+The site's public `config.js` uses a publishable key only; never place a service role key in it. Existing data remains in Supabase.
