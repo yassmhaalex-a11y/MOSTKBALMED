@@ -74,3 +74,7 @@
 /* V16: restore visible contact icons without changing links */
 .contact-button{display:inline-flex;align-items:center;justify-content:center;gap:10px}
 .contact-icon{width:23px;height:23px;flex:none;display:block}
+
+/* V17: contact buttons must remain visible, even before settings load. */
+.contact-actions > .contact-button{display:inline-flex!important;visibility:visible!important;opacity:1!important}
+.contact-actions > .contact-button.contact-unset{opacity:.65!important;cursor:not-allowed}

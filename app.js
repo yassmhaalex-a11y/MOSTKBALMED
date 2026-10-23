@@ -5,6 +5,7 @@ function render(){const q=$('#search').value.toLowerCase().trim();const filtered
 $('#search').addEventListener('input',render);$('#menu').addEventListener('click',()=>{const expanded=$('#nav').classList.toggle('show');$('#menu').setAttribute('aria-expanded',String(expanded));});$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('show');$('#menu').setAttribute('aria-expanded','false');}});$('#year').textContent=new Date().getFullYear();render();
 function setContactLink(id, href, missingMessage){
  const el=$(id);if(!el)return;
+ el.hidden=false;el.removeAttribute("hidden");
  if(href){el.href=href;el.removeAttribute('aria-disabled');el.classList.remove('contact-unset');el.title='';}
  else{el.removeAttribute('href');el.setAttribute('aria-disabled','true');el.classList.add('contact-unset');el.title=missingMessage;}
 }
