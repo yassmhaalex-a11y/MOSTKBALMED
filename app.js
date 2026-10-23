@@ -11,9 +11,10 @@ function setContactLink(id, href, missingMessage){
 }
 function applySettings(s){
  if(!s){showPublicWarning('Website settings are not available. Check the admin settings and Supabase permissions.');return;}
- for(const [id,key] of [['aboutTitle','about_title'],['aboutText','about_text'],['contactTitle','contact_title'],['contactText','contact_text']]){
+ for(const [id,key] of [['aboutTitle','about_title'],['aboutText','about_text'],['contactTitle','contact_title'],['contactText','contact_text'],['heroEyebrow','hero_eyebrow'],['heroDescription','hero_description'],['heroButtonText','hero_button_text']]){
   if(typeof s[key]==='string'&&s[key].trim())$('#'+id).textContent=s[key];
  }
+ const title=$('#heroTitle');if(title&&typeof s.hero_title==='string'&&s.hero_title.trim()){title.textContent=s.hero_title;title.style.whiteSpace='pre-line';}
  const photo=$('#servicesPreview'),hint=$('#serviceHint');
  const image=String(s.maintenance_image||'').trim();
  if(photo){
@@ -26,6 +27,7 @@ function applySettings(s){
  const phone=String(s.phone||'').replace(/[^0-9+]/g,'');
  setContactLink('#whatsappButton',wa.length>=10?'https://wa.me/'+wa:'','Add WhatsApp number in Admin → Contact');
  setContactLink('#phoneButton',phone.length>=5?'tel:'+phone:'','Add landline number in Admin → Contact');
+ const maintenance=$('#maintenanceButton');if(maintenance){const number=String(s.maintenance_whatsapp||'').replace(/\D/g,'');maintenance.hidden=s.maintenance_enabled!==true;if(s.maintenance_enabled===true){setContactLink('#maintenanceButton',number.length>=10?'https://wa.me/'+number:'','Add maintenance WhatsApp number in Admin → Contact');}$('#maintenanceButtonText').textContent=String(s.maintenance_button_label||'قسم الصيانة');}
 }
 function showPublicWarning(message){
  console.error('[MOSTKBALMED settings]',message);

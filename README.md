@@ -1,3 +1,7 @@
-MOSTKBALMED V17 — Contact buttons visibility fix.
+MOSTKBALMED V18 — Homepage Settings + Maintenance Contact Button.
 
-Root cause: index.html had hidden attributes on both contact anchors; app.js set href but did not remove hidden. Both buttons are now visible even when contact settings are missing. Links become active when valid WhatsApp and landline numbers are saved in Supabase Admin Contact Us. No SQL changes. Other features retained from V16.
+1. Run V18_DATABASE_UPDATE.sql in the existing Supabase SQL Editor (no data deleted).
+2. Upload all files to GitHub repo root and deploy to Vercel.
+3. In Admin > Homepage edit eyebrow, title, description and CTA label; click Save Homepage.
+4. In Admin > Contact enter maintenance WhatsApp, button label, enable checkbox, then Save This Page.
+5. Existing WhatsApp and landline buttons, hover image, product catalog, and footer credit are preserved.

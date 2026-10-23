@@ -78,3 +78,6 @@
 /* V17: contact buttons must remain visible, even before settings load. */
 .contact-actions > .contact-button{display:inline-flex!important;visibility:visible!important;opacity:1!important}
 .contact-actions > .contact-button.contact-unset{opacity:.65!important;cursor:not-allowed}
+
+/* V18 maintenance contact button */
+.contact-button.maintenance{background:#193e68;color:white;text-decoration:none}.contact-button.maintenance .contact-icon{display:inline-flex;align-items:center;justify-content:center;font-size:22px}.contact-button.maintenance[hidden]{display:none!important}
