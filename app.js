@@ -14,6 +14,7 @@ function applySettings(s){
   if(typeof s[key]==='string'&&s[key].trim())$('#'+id).textContent=s[key];
  }
  const subtitle=document.querySelector('.brand small');if(subtitle&&typeof s.brand_subtitle==='string'&&s.brand_subtitle.trim())subtitle.textContent=s.brand_subtitle;
+ const heroImage=$('#heroCircleImage');if(heroImage&&/^https?:\/\//i.test(String(s.hero_image||''))){heroImage.src=s.hero_image;heroImage.onerror=()=>{heroImage.onerror=null;heroImage.src='logo.jpg';};}
  const title=$('#heroTitle');if(title&&typeof s.hero_title==='string'&&s.hero_title.trim()){title.textContent=s.hero_title;title.style.whiteSpace='pre-line';}
  const photo=$('#servicesPreview'),hint=$('#serviceHint');
  const image=String(s.maintenance_image||'').trim();
