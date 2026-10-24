@@ -19,12 +19,12 @@ async function load(){
   if(cfg.url&&cfg.anonKey){
    const headers={apikey:cfg.anonKey};if(!cfg.anonKey.startsWith('sb_publishable_'))headers.Authorization='Bearer '+cfg.anonKey;
    const base=cfg.url.replace(/\/$/,'')+'/rest/v1/';
-   const r=await fetch(base+'med_products?id=eq.'+encodeURIComponent(id)+'&active=eq.true&select=id,name,category,image,images,description,features',{headers});
+   const r=await fetch(base+'med_products?id=eq.'+encodeURIComponent(id)+'&active=eq.true&select=id,name,category_id,image,images,description,features',{headers});
    if(!r.ok)throw new Error('Unable to load the product from Supabase.');
    const rows=await r.json();if(!rows.length){fail('This product could not be found.');return;}
-   show(rows[0],'Medical Equipment');return;
+   show(rows[0],'Medical Equipment');fetch(base+'med_settings?select=brand_subtitle&id=eq.1',{headers}).then(r=>r.ok?r.json():[]).then(rows=>{if(rows[0]?.brand_subtitle)document.querySelector('.brand small').textContent=rows[0].brand_subtitle;}).catch(console.warn);if(rows[0].category_id){document.querySelectorAll('.back-link,.detail-nav a').forEach(a=>{a.href='category.html?id='+encodeURIComponent(rows[0].category_id);a.textContent='← Back to Category';});}return;
   }
   fail('Catalog connection is not configured.');
  }catch(e){console.error(e);fail('Please check your connection and try again.');}
 }
-load().finally(()=>{const loader=document.getElementById('pageLoader');loader.classList.add('loader-hide');loader.addEventListener('transitionend',()=>loader.remove(),{once:true});});
+const loaderStart=Date.now();load().finally(async()=>{await new Promise(resolve=>setTimeout(resolve,Math.max(0,900-(Date.now()-loaderStart))));const loader=document.getElementById('pageLoader');loader.classList.add('loader-hide');loader.addEventListener('transitionend',()=>loader.remove(),{once:true});});

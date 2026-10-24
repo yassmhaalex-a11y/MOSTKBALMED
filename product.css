@@ -3,3 +3,6 @@
 
 .loader-logo{width:75px;height:75px;display:grid;place-items:center}
 .loader-logo img{width:100%;height:100%;object-fit:contain}
+
+/* V19 slightly slower page-entry logo motion */
+.loader-logo{animation:logo-turn 1.65s ease-in-out both}.loader-ring{animation-duration:1.3s}.loader-brand{animation-duration:1.05s}.page-loader{transition:opacity .65s ease,visibility .65s ease}

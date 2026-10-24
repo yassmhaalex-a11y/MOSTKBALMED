@@ -1,8 +1,7 @@
-const $=s=>document.querySelector(s);let products=[];
+const $=s=>document.querySelector(s);let categories=[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const art=p=>p.image?`<img loading="lazy" src="${esc(p.image)}" alt="${esc(p.name)}">`:'<div class="placeholder"><span>✚</span><small>MOSTKBALMED</small></div>';
-function render(){const q=$('#search').value.toLowerCase().trim();const filtered=products.filter(p=>[p.name,p.description].join(' ').toLowerCase().includes(q));$('#resultCount').textContent=`${filtered.length} products`;$('#empty').hidden=!!filtered.length;$('#empty').textContent=q?'No matching products found.':'No products have been added yet.';$('#productGrid').innerHTML=filtered.map(p=>`<article class="product-card"><div class="product-image">${art(p)}</div><div class="product-info"><h3>${esc(p.name)}</h3><a class="detail-btn" href="product.html?id=${encodeURIComponent(p.id)}">View Details <span>→</span></a></div></article>`).join('');}
-$('#search').addEventListener('input',render);$('#menu').addEventListener('click',()=>{const expanded=$('#nav').classList.toggle('show');$('#menu').setAttribute('aria-expanded',String(expanded));});$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('show');$('#menu').setAttribute('aria-expanded','false');}});$('#year').textContent=new Date().getFullYear();render();
+function render(){const grid=$('#categoryGrid');if(!grid)return;$('#empty').hidden=categories.length>0;grid.innerHTML=categories.map(c=>`<a class="catalog-category" href="category.html?id=${encodeURIComponent(c.id)}"><div class="catalog-category-image">${c.image?`<img loading="lazy" src="${esc(c.image)}" alt="${esc(c.name)}">`:'<div class="category-placeholder">MOSTKBALMED</div>'}</div><div class="catalog-category-content"><h3>${esc(c.name)}</h3><p>${esc(c.description||'')}</p><span>View Products →</span></div></a>`).join('');}
+$('#menu').addEventListener('click',()=>{const expanded=$('#nav').classList.toggle('show');$('#menu').setAttribute('aria-expanded',String(expanded));});$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('show');$('#menu').setAttribute('aria-expanded','false');}});$('#year').textContent=new Date().getFullYear();render();
 function setContactLink(id, href, missingMessage){
  const el=$(id);if(!el)return;
  el.hidden=false;el.removeAttribute("hidden");
@@ -14,6 +13,7 @@ function applySettings(s){
  for(const [id,key] of [['aboutTitle','about_title'],['aboutText','about_text'],['contactTitle','contact_title'],['contactText','contact_text'],['heroEyebrow','hero_eyebrow'],['heroDescription','hero_description'],['heroButtonText','hero_button_text']]){
   if(typeof s[key]==='string'&&s[key].trim())$('#'+id).textContent=s[key];
  }
+ const subtitle=document.querySelector('.brand small');if(subtitle&&typeof s.brand_subtitle==='string'&&s.brand_subtitle.trim())subtitle.textContent=s.brand_subtitle;
  const title=$('#heroTitle');if(title&&typeof s.hero_title==='string'&&s.hero_title.trim()){title.textContent=s.hero_title;title.style.whiteSpace='pre-line';}
  const photo=$('#servicesPreview'),hint=$('#serviceHint');
  const image=String(s.maintenance_image||'').trim();
@@ -50,14 +50,12 @@ function showPublicWarning(message){
    applySettings(body[0]);
   }catch(e){showPublicWarning(e.message);}
  })();
- const productsTask=(async()=>{
-  try{
-   const res=await fetch(base+'med_products?select=id,name,image,description&active=eq.true&order=created_at.desc',{headers,cache:'no-store'});
-   if(!res.ok)throw Error('Products HTTP '+res.status);
-   products=await res.json();render();
-  }catch(e){console.error(e);$('#empty').hidden=false;$('#empty').textContent='Unable to load products. Please try again later.';}
+ const categoriesTask=(async()=>{
+  try{const res=await fetch(base+'med_catalog_categories?select=id,name,description,image&active=eq.true&order=created_at.asc',{headers,cache:'no-store'});
+   if(!res.ok)throw Error('Categories HTTP '+res.status);categories=await res.json();render();}
+  catch(e){console.error(e);$('#empty').hidden=false;$('#empty').textContent='Unable to load categories. Run V19_DATABASE_UPDATE.sql in Supabase.';}
  })();
- await Promise.allSettled([settingsTask,productsTask]);
+ await Promise.allSettled([settingsTask,categoriesTask]);
 })();
 
 // Desktop hover and keyboard focus; hide immediately when pointer leaves.
@@ -72,3 +70,6 @@ if(serviceTrigger){
  serviceTrigger.addEventListener('click',()=>serviceTrigger.classList.toggle('preview-open'));
  document.addEventListener('click',e=>{if(!serviceTrigger.contains(e.target))serviceTrigger.classList.remove('preview-open')});
 }
+
+// Keep entry animation visible briefly on the homepage.
+window.addEventListener('load',()=>{setTimeout(()=>{const el=$('#pageLoader');if(el){el.classList.add('loader-hide');setTimeout(()=>el.remove(),800)}},950)});
