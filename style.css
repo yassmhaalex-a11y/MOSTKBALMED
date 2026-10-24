@@ -136,3 +136,9 @@
 #categoryGrid .catalog-category-image img{display:block;width:100%;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center;padding:0;margin:0}
 #categoryGrid .catalog-category-image:not(:has(img)){min-height:275px}
 @media(max-width:620px){#categoryGrid .catalog-category-image:not(:has(img)){min-height:245px}}
+
+/* V25: center category titles inside homepage cards */
+#categoryGrid .catalog-category-content h3 {
+  text-align: center;
+  width: 100%;
+}

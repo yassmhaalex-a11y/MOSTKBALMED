@@ -9,3 +9,5 @@ V23: Homepage category cards are centered and slightly larger. Two categories ap
 
 ## V24 — Adaptive Category Image Frame
 Homepage category photos use their natural aspect ratio at full card width. No fixed-height letterboxing or cropping. Category layout stays centered as in V23. No database migration required.
+
+V25: Homepage category titles centered in their cards. No database migration required.
