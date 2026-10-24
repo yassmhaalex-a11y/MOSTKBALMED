@@ -93,3 +93,11 @@
 .brand-name{display:block;font-size:clamp(27px,2.65vw,36px);font-weight:900;line-height:1.08;overflow-wrap:anywhere}
 .brand-copy small{display:block}
 @media(max-width:620px){.brand-name{font-size:clamp(19px,5.1vw,27px)}}
+
+/* V22: image-shaped hero frame instead of a fixed circle. */
+.hero-art{height:auto;min-height:330px;display:flex;align-items:center;justify-content:center;padding:28px 0 48px}
+.hero-art .circle{width:fit-content!important;height:auto!important;max-width:100%;border-radius:14px!important;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;padding:0!important;background:#fff;box-shadow:0 16px 45px #1166db22;border:1px solid #e3ecf6}
+.hero-art .circle img{display:block;width:auto!important;height:auto!important;max-width:min(100%,420px)!important;max-height:350px;object-fit:contain!important;padding:0!important;border-radius:12px}
+.hero-art .art-label{bottom:0}
+@media(max-width:850px){.hero-art .circle img{max-width:100%!important;max-height:300px}}
+@media(max-width:620px){.hero-art{min-height:0;height:auto;padding:22px 0 48px}.hero-art .circle img{max-width:min(100%,320px)!important;max-height:290px}}
