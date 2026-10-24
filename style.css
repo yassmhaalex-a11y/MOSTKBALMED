@@ -101,3 +101,32 @@
 .hero-art .art-label{bottom:0}
 @media(max-width:850px){.hero-art .circle img{max-width:100%!important;max-height:300px}}
 @media(max-width:620px){.hero-art{min-height:0;height:auto;padding:22px 0 48px}.hero-art .circle img{max-width:min(100%,320px)!important;max-height:290px}}
+
+/* V23: centered, slightly larger homepage category cards */
+#categoryGrid.category-catalog{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:stretch;
+  gap:28px;
+}
+#categoryGrid.category-catalog .catalog-category{
+  flex:0 1 440px;
+  width:min(100%,440px);
+  min-width:0;
+}
+#categoryGrid .catalog-category-image{height:275px}
+#categoryGrid .catalog-category-content{padding:25px}
+#categoryGrid .catalog-category-content h3{font-size:24px}
+@media(max-width:850px){
+  #categoryGrid.category-catalog{gap:18px}
+  #categoryGrid.category-catalog .catalog-category{flex:0 1 calc(50% - 9px);width:calc(50% - 9px)}
+  #categoryGrid .catalog-category-image{height:220px}
+}
+@media(max-width:620px){
+  #categoryGrid.category-catalog{gap:14px}
+  #categoryGrid.category-catalog .catalog-category{flex:0 1 min(100%,430px);width:min(100%,430px)}
+  #categoryGrid .catalog-category-image{height:245px}
+  #categoryGrid .catalog-category-content{padding:20px}
+  #categoryGrid .catalog-category-content h3{font-size:21px}
+}
