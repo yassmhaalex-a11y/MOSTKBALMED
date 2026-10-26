@@ -11,3 +11,7 @@ V23: Homepage category cards are centered and slightly larger. Two categories ap
 Homepage category photos use their natural aspect ratio at full card width. No fixed-height letterboxing or cropping. Category layout stays centered as in V23. No database migration required.
 
 V25: Homepage category titles centered in their cards. No database migration required.
+
+
+## V26 - Product link button
+Run V26_DATABASE_UPDATE.sql in Supabase SQL Editor before uploading site files. Admin > Products > Add/Edit: fill Button text and Button link (both optional). A safe external link appears immediately below the product description. Existing products remain unchanged.

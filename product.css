@@ -6,3 +6,6 @@
 
 /* V19 slightly slower page-entry logo motion */
 .loader-logo{animation:logo-turn 1.65s ease-in-out both}.loader-ring{animation-duration:1.3s}.loader-brand{animation-duration:1.05s}.page-loader{transition:opacity .65s ease,visibility .65s ease}
+
+/* V26 optional product link below description */
+.product-custom-link{display:inline-flex;align-items:center;justify-content:center;margin-top:20px;padding:12px 24px;background:#0867ca;color:#fff!important;border-radius:12px;text-decoration:none;font-weight:750;max-width:100%;overflow-wrap:anywhere;transition:background .2s,transform .2s}.product-custom-link:hover{background:#084d94;transform:translateY(-2px)}
