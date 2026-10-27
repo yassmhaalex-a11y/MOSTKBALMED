@@ -15,3 +15,11 @@ V25: Homepage category titles centered in their cards. No database migration req
 
 ## V26 - Product link button
 Run V26_DATABASE_UPDATE.sql in Supabase SQL Editor before uploading site files. Admin > Products > Add/Edit: fill Button text and Button link (both optional). A safe external link appears immediately below the product description. Existing products remain unchanged.
+
+
+## V27: PDF upload for product link button
+Run `V27_DATABASE_UPDATE.sql` in Supabase SQL Editor before uploading PDFs.
+In Admin > Products, enter Button Text and choose a local PDF in Upload PDF for button.
+Click Save Product. The PDF uploads to the public `med-pdfs` storage bucket; the button under Product Description opens it in a new tab.
+On edit, the existing PDF is preserved unless you upload a replacement. Clear Button Text to hide the button.
+Maximum PDF size: 20 MB. PDFs in the public bucket can be accessed by anyone with the URL.
